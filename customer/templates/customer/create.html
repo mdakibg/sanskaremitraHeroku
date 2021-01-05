@@ -1,0 +1,105 @@
+{% extends 'customer/layout.html' %}
+
+{% block title %}
+    Add Request
+{% endblock %}
+
+{% block css %}
+    #new {
+        background: #013133;
+    }
+{% endblock %}
+
+{% block main %}
+    <!--Admin Content-->
+    <div class="admin-content">
+
+        {% for message in messages %}
+            <div class="msg">
+                {{message}}
+            </div>
+        {% endfor %}
+
+        <div class="content">
+            <h2 class="page-title">Add Request</h2>
+
+            <form action="{% url 'customer:create' %}" method="post">
+                {% csrf_token %}
+                <div>
+                    <label>Name</label>
+                    <input type="text" name="name" class="text-input" required>
+                </div>
+                <div>
+                    <label>Mobile</label>
+                    <input type="text" name="mobile" class="text-input" pattern="[0-9]{10}" required>
+                </div>
+                <div>
+                    <label>Service</label>
+                    <select id="s1" name="service" class="text-input" onchange="populate(this.id, 's2')" required>
+                        <option value="">Select here...</option>
+                        {% for service in services %}
+                            <option value="{{ service.name }}">{{ service.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label>Sub-Service</label>
+                    <select id="s2" name="sub_service"  class="text-input" required disabled></select>
+                </div>
+                <div>
+                    <label>Payment</label>
+                    <input id="payment" type="number" name="payment" class="text-input" min="0" required>
+                </div>
+                <div>
+                    <label>Advance Payment</label>
+                    <input type="number" name="adv_payment" class="text-input" min="0" required>
+                </div>
+                <div>
+                    <label>Priority: </label>
+                    <input type="radio" id="normal" name="priority" value="Normal" checked required>
+                    <label for="normal"><strong>Normal</strong></label>
+                    <input type="radio" id="high" name="priority" value="High" required>
+                    <label for="high"><strong>High</strong></label>
+                </div>
+                <div>
+                    <button type="submit" class="btn">Create</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <!--End Admin Content-->
+
+    <script type="text/javascript">
+        function populate(s1, s2){
+            var s1 = document.getElementById(s1);
+            var s2 = document.getElementById(s2);
+        
+            if(s1.value == ""){
+                s2.disabled = true;
+            }
+            else{
+                s2.disabled = false;
+            }
+            s2.innerHTML = "";
+
+            {% for service in services %}
+                if(s1.value == "{{ service.name }}"){
+                    var optionArray = [
+                        {% for subservice in service.subservices %} 
+                            "{{ subservice.name }}|{{ subservice.name }}  ({{ subservice.fee }})", 
+                        {% endfor %}
+                    ]
+                }
+            {% endfor %}
+        
+            for (var option in optionArray){
+                var pair = optionArray[option].split("|");
+                var newOption = document.createElement("option");
+                newOption.value = pair[0];
+                newOption.innerHTML = pair[1];
+                s2.options.add(newOption);
+            }
+        }
+    </script>
+{% endblock %}

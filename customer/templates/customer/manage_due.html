@@ -1,0 +1,57 @@
+{% extends 'customer/layout.html' %}
+
+{% block title %}
+    Manage Requests
+{% endblock %}
+
+{% block main %}
+    <!--Admin Content-->
+    <div class="admin-content">
+        {% for message in messages %}
+            <div class="msg">
+                {{message}}
+            </div>
+        {% endfor %}
+        <div class="button-group">
+            <a href="{% url 'customer:index' %}" class="btn">Done</a>
+        </div>
+
+        <div class="content">
+            <h2 class="page-title">Manage Due Requests</h2>
+
+            <table>
+                <thead>
+                    <th>SN</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Service</th>
+                    <th>Payment</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th colspan="1"></th>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ record.name }}</td>
+                        <td>{{ record.mobile }}</td>
+                        <td>{{ record.service }} ({{ record.subservice }})</td>
+                        <td>{{ record.payment }}</td>
+                        <td>{{ record.priority }}</td>
+                        <td>{{ record.status }}</td>
+                        <td>
+                            <form action="{% url 'customer:manage_due' %}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                {% csrf_token %}
+                                <button value="{{ record.id }}" name="remove" type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <!--End Admin Content-->
+{% endblock %}

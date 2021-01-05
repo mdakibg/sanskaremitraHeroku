@@ -1,0 +1,34 @@
+{% extends "emitr/layout.html" %}
+
+{% block title %}
+    Contact US
+{% endblock %}
+
+{% block main %}
+
+<div class="page-content">
+    <div class="page-title">
+        <h1>Contact Us</h1>
+        <hr>
+    </div>
+    <div class="content">
+        <div class="section info">
+            <p>Sanskar Emitra & Computer Center</p>
+            <span><i class="fas fa-map-marker-alt"> &nbsp; Imam Chowk Gorabass Makrana, Dist - Nagaur, Rajasthan - 341505</i></span>
+            <span><i class="fas fa-phone-alt"> &nbsp; +91-7976048007 (Haider Ali)</i></span>
+            <span><i class="fas fa-phone-alt"> &nbsp; +91-9667079375 (Manan Gehlot)</i></span>
+            <span><i class="fas fa-envelope"> &nbsp; haidergehlot8@gmail.com</i></span>
+            <span><i class="fas fa-envelope"> &nbsp; sanskaremitr007@gmail.com</i></span>
+
+            <p>Bank of Baroda Office</p>
+            <span><i class="fas fa-map-marker-alt"> &nbsp; Near Bank of Baroda, Bypass Road Makrana, Dist - Nagaur, Rajasthan - 341505</i></span>
+            <span><i class="fas fa-phone-alt"> &nbsp; +91-9829464133 (Imran Gehlot)</i></span>
+        </div>
+        <div class="section map">
+            {% load static %}
+            <img src="{% static 'image/emitra-map.jpg' %}" alt="Location Map">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

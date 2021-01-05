@@ -1,0 +1,36 @@
+{% extends "emitr/layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <div class="auth-content">
+
+        <form action="{% url 'emitr:login' %}" method="POST">
+            {% csrf_token %}
+            <h2 class="form-title">Login</h2>
+
+            {% for message in messages %}
+            <div class="login-msg error">
+                <li>{{ message }}</li>
+            </div>
+            {% endfor %}
+            
+
+            <div>
+                <label>Username</label>
+                <input type="text" name="username" class="text-input">
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" class="text-input">
+            </div>
+            <div>
+                <button type="submit" name="register-btn" class="btn btn-big auth-btn">Login</button>
+            </div>
+            <!-- <p>Or <a href="register.html">Sign Up</a></p> -->
+        </form>
+
+    </div>
+{% endblock %}

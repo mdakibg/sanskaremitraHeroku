@@ -1,0 +1,91 @@
+{% extends 'customer/layout.html' %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block css %}
+    #search {
+        background: #013133;
+    }
+{% endblock %}
+
+{% block main %}
+    <!--Admin Content-->
+    <div class="admin-content">
+
+        {% for message in messages %}
+            <div class="msg">
+                {{message}}
+            </div>
+        {% endfor %}
+
+        <div class="content">
+            <h2 class="page-title">Search</h2>
+
+            <form action="{% url 'customer:search' %}" method="post">
+                {% csrf_token %}
+                <div>
+                    <label>Search Using: </label>
+                    <input type="radio" id="name" name="search-field" value="name" checked>
+                    <label for="name"><strong>Name</strong></label>
+                    <input type="radio" id="mobile" name="search-field" value="mobile">
+                    <label for="mobile"><strong>Mobile</strong></label>
+                </div>
+                <div>
+                    <label>Name/Mobile</label>
+                    <input type="text" name="search-text" class="text-input" required>
+                </div>
+                <div>
+                    <button type="submit" class="btn">Search</button>
+                </div>
+            </form>
+        </div>
+        
+        
+        <div class="content">
+        {% if results %}
+            <h2 class="page-title">Search Results</h2>
+
+            <table>
+                <thead>
+                    <th>SN</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Service</th>
+                    <th>Payment</th>
+                    <th>Advance</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th colspan="2"></th>
+                </thead>
+                <tbody>
+                    {% for record in results %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ record.name }}</td>
+                        <td>{{ record.mobile }}</td>
+                        <td>{{ record.service }} ({{ record.subservice }})</td>
+                        <td>{{ record.payment }}</td>
+                        <td>{{ record.advance }}</td>
+                        <td>{{ record.priority }}</td>
+                        <td>{{ record.status }}</td>
+                        <td>{{ record.date }}</td>
+                        <td><a href="{% url 'customer:edit' record.id %}" class="edit">edit</a></td>
+                        <td>
+                            <form action="{% url 'customer:search' %}" method="POST"  onsubmit="return confirm('Are you sure?');">
+                                {% csrf_token %}
+                                <button value="{{ record.id }}" name="remove" type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+    <!--End Admin Content-->
+{% endblock %}

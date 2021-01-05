@@ -1,0 +1,85 @@
+{% extends 'customer/layout.html' %}
+
+{% block title %}
+    Edit Requests
+{% endblock %}
+
+{% block css %}
+    #{{ recored.status }} {
+        background: #013133;
+    }
+{% endblock %}
+
+{% block main %}
+    <!--Admin Content-->
+    <div class="admin-content">
+
+        {% for message in messages %}
+            <div class="msg">
+                {{message}}
+            </div>
+        {% endfor %}
+
+        <div class="content">
+            <h2 class="page-title">Edit Requests</h2>
+
+            <table>
+                <tbody>
+                    <form action="{% url 'customer:edit' record.id %}" method="post">
+                    {% csrf_token %}
+                    <tr>
+                        <th>Name: </th>
+                        <td>
+                            <input type="text" name="name" value="{{ record.name }}" placeholder="Name" class="text-input">
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <th>Mobile: </th>
+                        <td>
+                            <input type="text" name="mobile" value="{{ record.mobile }}" placeholder="Mobile" class="text-input" pattern="[0-9]{10}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Payment: </th>
+                        <td>
+                            <input type="number" name="payment" value="{{ record.payment }}" placeholder="Payment" class="text-input" min="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Advance Payment: </th>
+                        <td>
+                            <input type="number" name="adv_payment" value="{{ record.advance }}" placeholder="Advance Payment" class="text-input" min="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status: </th>
+                        <td>
+                            <select name="status" class="text-input" required>
+                                <option value="{{ record.status }}" selected>{{ record.status }}</option>
+                                {% if record.status == 'Due' %}
+                                    <option value="Processing">Processing</option>
+                                    <option value="Done">Done</option>
+                                {% elif record.status == 'Processing' %}
+                                    <option value="Processing">Due</option>
+                                    <option value="Done">Done</option>
+                                {% else %}
+                                    <option value="Processing">Due</option>
+                                    <option value="Done">Processing</option>
+                                {% endif %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type=button value="Cancel" onClick="javascript:history.go(-1);" class="btn"></td>
+                        <td>
+                            <button type="submit" class="btn">Submit</button>
+                        </td>
+                    </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <!--End Admin Content-->
+{% endblock %}

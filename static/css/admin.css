@@ -1,0 +1,90 @@
+header {
+    background: #013133;
+}
+
+.admin-wrapper {
+    height: calc(100% - 60px);
+    display: flex;
+}
+
+.admin-wrapper .left-sidebar {
+    flex: 2;
+    height: 100%;
+    background: #234a57;
+}
+
+.admin-wrapper .left-sidebar ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    color: aliceblue;
+}
+
+.admin-wrapper .left-sidebar ul li {
+    padding: 18px;
+    display: block;
+    border-bottom: 1px solid #013133;
+}
+
+.admin-wrapper .left-sidebar ul li:hover {
+    background: #013133;
+}
+
+.admin-wrapper .admin-content {
+    flex: 8;
+    height: 100%;
+    padding: 40px 50px 50px;
+    overflow-y: scroll;
+}
+
+.admin-wrapper .admin-content .content {
+    overflow: auto;
+}
+
+.admin-wrapper .admin-content .page-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.edit {
+    color: green;
+}
+
+.delete {
+    color: red;
+}
+
+.edit:hover,
+.delete:hover,
+.publish:hover {
+    text-decoration: underline;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+.msg {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    background:white;
+    border-bottom: 2px solid darkgreen;
+    border-top: 2px solid darkgreen;
+    color: darkgreen;
+}
+
+.btn-delete {
+    padding: 0.5rem 1rem;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: .25rem;
+    font-size: 1.08em;
+    font-family: 'Lora', serif;
+}
+.btn-delete:hover {
+    background: brown;
+}

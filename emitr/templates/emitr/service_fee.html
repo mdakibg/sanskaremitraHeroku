@@ -1,0 +1,36 @@
+{% extends "emitr/layout.html" %}
+
+{% block title %}
+    Service Rates
+{% endblock %}
+
+{% block main %}
+
+<div class="page-content">
+    <div class="page-title">
+        <h1>Services Fees</h1>
+        <hr>
+    </div>
+    <div class="content service">
+        <h2 class="sub-title">{{ service.title }}</h2>
+
+        <table>
+            <thead>
+                <th>SN</th>                
+                <th>Name</th>
+                <th>Fee</th>
+            </thead>
+            <tbody>
+                {% for service in subservices %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.fee }}</td>                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

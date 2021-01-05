@@ -1,0 +1,59 @@
+{% extends 'customer/layout.html' %}
+
+{% block title %}
+    Completed Requests
+{% endblock %}
+
+{% block css %}
+    #Done {
+        background: #013133;
+    }
+{% endblock %}
+
+{% block main %}
+    <!--Admin Content-->
+    <div class="admin-content">
+        <div class="button-group">
+            <div class="left">
+                <button class="btn"><a href="{% url 'customer:manage_completed' %}">Manage Requests</a></button>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2 class="page-title">Completed Requests</h2>
+
+            <table>
+                <thead>
+                    <th>SN</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Service</th>
+                    <th>Payment Due</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th colspan="1"></th>                    
+                </thead>
+                <tbody>
+                    {% for record, RemainingPayment in records %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ record.name }}</td>
+                        <td>{{ record.mobile }}</td>
+                        <td>{{ record.service }} ({{ record.subservice }})</td>
+                        <td>{{ RemainingPayment }}</td>
+                        <td>{{ record.priority }}</td>
+                        <td>{{ record.status }}</td>
+                        <td>{{ record.date }}</td>
+                        <td><a href="{% url 'customer:edit' record.id %}" class="edit">edit</a></td>
+                    </tr>
+                    {% empty %}
+                        <td colspan="9" style="text-align: center;"><h3>No Record to Show!</h3></td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <!--End Admin Content-->
+{% endblock %}

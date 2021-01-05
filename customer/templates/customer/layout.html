@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<meta http-equiv="X-UA-Compatible" content="ie-edge">-->
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/fc81595e4c.js" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Candal&family=Lora&display=swap" rel="stylesheet">
+
+    {% load static %}
+    <!-- fav icon -->
+    <link rel="icon" type="image/png" href="{% static 'image/favicon.png' %}">
+
+    <!-- Custom Styling -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/admin.css' %}" rel="stylesheet">
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+    <!-- Custom Script -->
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <title>SanskarEmitra Customer |{% block title %}{% endblock %}</title>
+    <style>
+        {% block css %}
+        {% endblock %}
+    </style>
+</head>
+    
+<body>
+    <!--Navbar-->
+    <header>
+        <div class="logo">
+            <h1 class="logo-text"><a href="{% url 'emitr:index' %}"><span>Sanskar</span>Emitra</a></h1>
+        </div>
+        
+        <i class="fas fa-bars menu-toggle"></i>
+    
+        {% if request.user.is_authenticated %}
+        <ul class="nav">
+            <li><a href="{% url 'emitr:index' %}">Home</a></li>
+            <li><a href="{% url 'customer:download' %}">Download</a></li>
+            <li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
+            <li onclick="dropdownFunction()">
+                <div>
+                    <i class="fas fa-user"></i>
+                    &nbsp;{{ request.user }}
+                    <i class="fas fa-chevron-down" style="font-size: .8em;"></i>
+                </div>
+                <ul id="myDropdown">
+                    <li><a href="{% url 'admin:password_change' %}" target="_blank">Change Password</a></li>
+                    <li><a href="{% url 'emitr:logout' %}" class="logout">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% endif %}
+    </header>
+    <!--End Navbar-->
+
+    <div class="admin-wrapper">
+
+        <!--Left Sidebar-->
+        <div class="left-sidebar">
+            <ul>
+                <li id="new"><a href="{% url 'customer:create' %}">Add New</a></li>
+                <li id="Due"><a href="{% url 'customer:index' %}">Due Requests</a></li>
+                <li id="Processing"><a href="{% url 'customer:processing' %}">Processing Requests</a></li>
+                <li id="Done"><a href="{% url 'customer:completed' %}">Completed Requests</a></li>
+                <li id="search"><a href="{% url 'customer:search' %}">Search</a></li>
+            </ul>
+        </div>
+        <!--Left Sidebar-->
+        
+        {% block main %}
+        <!--Admin Content-->
+        {% endblock %}
+        
+    </div>
+    <!-- End Admin Page Wrapper-->
+
+</body>
+
+</html>
